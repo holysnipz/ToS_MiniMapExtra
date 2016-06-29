@@ -1,7 +1,10 @@
-function MINIMAP_UPDATE_EVENT(frame, msg, argStr, argNum)
-	-- Execute the FPS_ON_MSG function that was overwritten
-	_G["OLD_FUNCTION"](frame, msg, argStr, argNum);
 
+function MINIMAPEXTRA_ON_INIT(addon, frame)
+	addon:RegisterMsg("FPS_UPDATE", "MINIMAPEXTRA_UPDATE_EVENT");
+end
+
+
+function MINIMAPEXTRA_UPDATE_EVENT(frame, msg, argStr, argNum)
 	-- Map and minimap
 	local mapName = session.GetMapName();
 	local mapprop = geMapTable.GetMapProp(mapName);
@@ -65,10 +68,3 @@ function MINIMAP_UPDATE_EVENT(frame, msg, argStr, argNum)
 	minimapExtraText:SetOffset(0, 10);
 	minimapExtraFrame:ShowWindow(1);
 end
-
--- Copy the FPS_ON_MSG function and replace it with ours
-local eventHook = "FPS_ON_MSG";
-_G["OLD_FUNCTION"] = _G["FPS_ON_MSG"];
-_G[eventHook] = MINIMAP_UPDATE_EVENT;
-
-ui.SysMsg("Minimap Extra loaded!");
