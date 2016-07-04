@@ -12,6 +12,7 @@ function MINIMAPEXTRA_UPDATE_EVENT(frame, msg, argStr, argNum)
 	local mapFrame = ui.GetFrame("map");
 
 	-- Get completion percent
+	local completionPercent = 100;		--Default; for town / mercenary post / whatsever
 	if MAP_USE_FOG(mapName) ~= 0 then
 		completionPercent = session.GetMapFogRevealRate(mapName);
 		completionPercent = tonumber(string.format("%.1f", completionPercent));
