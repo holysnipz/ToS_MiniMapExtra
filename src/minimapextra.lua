@@ -12,8 +12,10 @@ function MINIMAPEXTRA_UPDATE_EVENT(frame, msg, argStr, argNum)
 	local mapFrame = ui.GetFrame("map");
 
 	-- Get completion percent
-	local completionPercent = session.GetMapFogRevealRate(mapName);
-	local completionPercent = tonumber(string.format("%.1f", completionPercent));
+	if MAP_USE_FOG(mapName) ~= 0 then
+		completionPercent = session.GetMapFogRevealRate(mapName);
+		completionPercent = tonumber(string.format("%.1f", completionPercent));
+	end
 
 	-- Minimap zoom level
 	local curSize = GET_MINIMAPSIZE();
@@ -33,25 +35,27 @@ function MINIMAPEXTRA_UPDATE_EVENT(frame, msg, argStr, argNum)
 	-- Loop through list of fog tiles
 	HIDE_CHILD_BYNAME(minimapFrame, "_SAMPLE_");
 	local tileList = session.GetMapFogList(mapName);
+	if tileList ~= nil then
 	local tileCount = tileList:Count();
-	for i = 0 , tileCount - 1 do
-		local tile = tileList:PtrAt(i);
-		
-		if tile.revealed == 0 then
-			-- draw tile on minimap
-			tilePosX = (tile.x * mapZoom) - myPosition.x + framePositionWidth;
-			tilePosY = (tile.y * mapZoom) - myPosition.y + framePositionHeight;
-			tileWidth = math.ceil(tile.w * mapZoom);
-			tileHeight = math.ceil(tile.h * mapZoom);
+		for i = 0 , tileCount - 1 do
+			local tile = tileList:PtrAt(i);
+			
+			if tile.revealed == 0 then
+				-- draw tile on minimap
+				tilePosX = (tile.x * mapZoom) - myPosition.x + framePositionWidth;
+				tilePosY = (tile.y * mapZoom) - myPosition.y + framePositionHeight;
+				tileWidth = math.ceil(tile.w * mapZoom);
+				tileHeight = math.ceil(tile.h * mapZoom);
 
-			local tileName = string.format("_SAMPLE_%d", i);
-			local pic = minimapFrame:CreateOrGetControl("picture", tileName, tilePosX, tilePosY, tileWidth, tileHeight);
-			tolua.cast(pic, "ui::CPicture");
-			pic:ShowWindow(1);
-			pic:SetImage("fullred");
-			pic:SetEnableStretch(1);
-			pic:SetAlpha(40.0);
-			pic:EnableHitTest(0);
+				local tileName = string.format("_SAMPLE_%d", i);
+				local pic = minimapFrame:CreateOrGetControl("picture", tileName, tilePosX, tilePosY, tileWidth, tileHeight);
+				tolua.cast(pic, "ui::CPicture");
+				pic:ShowWindow(1);
+				pic:SetImage("fullred");
+				pic:SetEnableStretch(1);
+				pic:SetAlpha(40.0);
+				pic:EnableHitTest(0);
+			end
 		end
 	end
 
