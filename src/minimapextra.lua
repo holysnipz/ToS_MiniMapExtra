@@ -61,15 +61,20 @@ function MINIMAPEXTRA_UPDATE_EVENT(frame, msg, argStr, argNum)
 	end
 
 	-- Draw map name and percentage on frame above minimap
+	local minimapFrame = ui.GetFrame("minimap");
+	local minimapX = minimapFrame:GetX();
+	
 	local minimapExtraFrame = ui.GetFrame("minimapextra");
+	minimapExtraFrame:SetOffset(minimapX,0);
 	minimapExtraFrame:SetGravity(ui.RIGHT, ui.TOP);
 
 	local minimapExtraText = minimapExtraFrame:GetChild("minimapExtraText");
 	tolua.cast(minimapExtraText, "ui::CRichText");
-	minimapExtraText:SetText("{@st42}" .. mapprop:GetName() .. "  " .. completionPercent .. "%{/}");
-	minimapExtraText:SetGravity(ui.LEFT, ui.TOP);
-	minimapExtraText:SetTextAlign("left", "top");
-	minimapExtraText:Move(0, 0);
+	
 	minimapExtraText:SetOffset(0, 10);
+	minimapExtraText:SetGravity(ui.LEFT, ui.TOP);
+	minimapExtraText:SetText("{@st42}" .. mapprop:GetName() .. "  " .. completionPercent .. "%{/}");
+	minimapExtraText:SetTextAlign("center", "top");
+	minimapExtraText:Move(0, 0);
 	minimapExtraFrame:ShowWindow(1);
 end
