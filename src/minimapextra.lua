@@ -73,7 +73,7 @@ function MINIMAPEXTRA_UPDATE_EVENT(frame, msg, argStr, argNum)
 	
 	minimapExtraText:SetOffset(0, 10);
 	minimapExtraText:SetGravity(ui.LEFT, ui.TOP);
-	minimapExtraText:SetText("{@st42}" .. mapprop:GetName() .. "  " .. completionPercent .. "%{/}");
+	minimapExtraText:SetText("{@st42}[" .. completionPercent .. "%]  " .. mapprop:GetName() .. "{/}");
 	minimapExtraText:SetTextAlign("center", "top");
 	minimapExtraText:Move(0, 0);
 	minimapExtraFrame:ShowWindow(1);
