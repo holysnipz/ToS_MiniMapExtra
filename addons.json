@@ -3,8 +3,8 @@
 		"name" : "MiniMap Extra",
 		"file" : "minimapextra",
 		"extension" : "ipf",
-		"fileVersion" : "v1.0",
-		"releaseTag" : "v1.0",
+		"fileVersion" : "v1.1",
+		"releaseTag" : "v1.1",
 		"unicode" : "⚗",
 		"description" : "Credits to Maytch\n Displays unrevealed areas of the map required for map completion, and shows map name and percentage revealed above the minimap.",
 		"tags" : [
